@@ -337,7 +337,7 @@ class Crawler {
 		if (is_array($header)) {
 		foreach ($header as $key => $value) {
 			if ($key == '' && substr($value, 0, strlen('HTTP/'))) {
-				$s = split(" ", $value);
+				$s = preg_split(" ", $value);
 				$res['http_status'] = $s[1];
 			} elseif ($key == "Last-Modified") {
 				$res['lastmod'] = strtotime(trim($value)); // no dynamic (php/other script) generated page
@@ -456,9 +456,9 @@ class Crawler {
 		$query_encoded = '';
 		if ($url_query != '') {
 			$query_encoded = '?';
-			foreach (split('&', $url_query) as $id => $quer) {
-				$v = split('=', $quer);
-				if ($v[1] != '') {
+			foreach (preg_split('&', $url_query) as $id => $quer) {
+				$v = preg_split('=', $quer);
+				if ($v[1] != '')
 					$query_encoded .= $v[0].'='.rawurlencode($v[1]).'&';
 				} else {
 					$query_encoded .= $v[0].'&';
@@ -654,12 +654,12 @@ echo 'Crawler _absolute: '.'absolute link to '.$relative.'<br/>';
 				$relative = substr($relative, 1);
 				$dir = '/';
 			} else {
-				// Link fängt mit ./ an
+				// Link fï¿½ngt mit ./ an
 				if (substr($relative, 0, 2) == './')
 				{
 					$relative = substr($relative, 2);
 				}
-				// Referenzen auf höher liegende Verzeichnisse auflösen
+				// Referenzen auf hï¿½her liegende Verzeichnisse auflï¿½sen
 				else
 				{
 					while (substr($relative, 0, 3) == '../') {
@@ -674,7 +674,7 @@ echo 'Crawler _absolute: '.'absolute link to '.$relative.'<br/>';
 echo 'Crawler _absolute: '.'new path '.$path.'<br/>';
 		}
 
-		// volle URL zurückgeben
+		// volle URL zurï¿½ckgeben
 		// did not support all parts or a URL! - corrected mk/2005-11-13
 		$abs  = ('file' == $url['scheme']) ? $url['scheme'].':///' : $url['scheme'].'://';
 		$abs .= (isset($url['user'])) ? $abs .= $url['user'].( (isset($url['pass'])) ? ':'.$url['pass'] : '' ).'@' : '';
@@ -725,11 +725,11 @@ echo 'Crawler _absolute: '.'new path '.$path.'<br/>';
 			$url['host'] = $this->host;
 		}
 
-		// Link fängt mit ./ an
+		// Link fï¿½ngt mit ./ an
 		if (substr($relative, 0, 2) == './')
 			$relative = substr($relative, 2);
 
-		// Referenzen auf höher liegende Verzeichnisse auflösen
+		// Referenzen auf hï¿½her liegende Verzeichnisse auflï¿½sen
 		else
 			while (substr($relative, 0, 3) == '../') {
 				$relative = substr($relative, 3);
@@ -741,7 +741,7 @@ echo 'Crawler _absolute: '.'new path '.$path.'<br/>';
 			return $this->base . urldecode($relative);
 		}
 
-		// volle URL zurückgeben
+		// volle URL zurï¿½ckgeben
 		return sprintf('%s://%s%s/%s', $url['scheme'], $url['host'], $dir, urldecode($relative));
 	}
 

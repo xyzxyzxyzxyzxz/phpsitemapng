@@ -1,0 +1,10 @@
+./inc/classes/LayoutEngine.class.php
+25:$this->content['content_header'] = "";	->	//$this->content['content_header'] = "";
+26:$this->content['content_footer'] = "";	->	//$this->content['content_footer'] = "";
+27:$this->content['title'] = "";		->	//$this->content['title'] = "";
+28:$this->content['charset'] = "";		->	//$this->content['charset'] = "";
+
+./inc/classes/LayoutEngine.class.php
+340:$s =split(" ", $value);			->	$s = preg_split(" ", $value);
+459:foreach (split('&', $url_query) as $id => $quer) {		->	foreach (preg_split('&', $url_query) as $id => $quer) {
+460:$v = split('=', $quer);		->	$v = preg_split('=', $quer);
